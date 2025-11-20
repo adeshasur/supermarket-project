@@ -4,14 +4,10 @@ import com.supermarket.inventory.inventory_service.data.Inventory;
 import com.supermarket.inventory.inventory_service.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List; 
-
-// --- ADD THESE TWO LINES ---
+import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "http://localhost:3000") // This allows your React app to connect
-// --- END OF ADDITION ---
+@CrossOrigin(origins = "http://localhost:3000") // React link
 
 @RestController
 @RequestMapping("/inventory")

@@ -16,7 +16,6 @@ public class Inventory {
     public Inventory() {
     }
 
-    // --- Getters and Setters ---
     public int getId() {
         return id;
     }
