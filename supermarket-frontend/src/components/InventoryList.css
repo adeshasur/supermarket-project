@@ -1,0 +1,96 @@
+.list-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  overflow-x: auto; 
+}
+
+.list-container h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #343a40;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse; /* Cleaner lines */
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6; /* Light gray lines */
+}
+
+.inventory-table thead th {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #495057;
+  text-transform: uppercase;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+
+.inventory-table tbody tr {
+  transition: background-color 0.2s;
+}
+
+.inventory-table tbody tr:hover {
+  background-color: #f1f3f5; /* Light hover effect */
+}
+
+.quantity-cell {
+  font-weight: 700;
+}
+
+.status-cell {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* In Stock (Green) */
+.in-stock .status-dot {
+  background-color: #28a745;
+}
+.in-stock .quantity-cell {
+  color: #28a745;
+}
+
+/* Medium Stock (Yellow) */
+.medium-stock .status-dot {
+  background-color: #ffc107;
+}
+.medium-stock .quantity-cell {
+  color: #dda600;
+}
+.medium-stock:hover {
+  background-color: #fff9e6;
+}
+
+/* Low Stock (Red) */
+.low-stock {
+  background-color: #fff5f5;
+  color: #dc3545;
+}
+.low-stock .status-dot {
+  background-color: #dc3545;
+}
+.low-stock .quantity-cell {
+  color: #dc3545;
+  font-weight: 700;
+}
+.low-stock:hover {
+  background-color: #ffeaea;
+}
