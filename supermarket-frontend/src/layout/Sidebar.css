@@ -1,0 +1,65 @@
+.sidebar {
+  width: 240px;
+  height: 100vh; /* Full height */
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px 15px;
+  
+  /* macOS Frosted Glass Effect */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+  display: flex;
+  align-items: center;
+  padding: 10px 5px;
+  margin-bottom: 20px;
+}
+
+.logo-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #007aff; /* macOS blue */
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 5px;
+}
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar-menu li a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* අපි ඉන්න පිටුව select වෙලා පේන්න */
+.sidebar-menu li a.active {
+  background-color: #007aff;
+  color: #fff;
+}
