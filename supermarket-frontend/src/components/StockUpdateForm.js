@@ -21,11 +21,11 @@ function StockUpdateForm({ onStockUpdated }) {
     };
 
     try {
+      // Corrected POST endpoint used for upsert logic
       await axios.post('http://localhost:8082/inventory/add', payload);
       
       setProductId('');
       setQuantity('');
-      // Unique class added here:
       setMessage('Stock Updated Successfully!'); 
       
       onStockUpdated(); 
@@ -73,13 +73,12 @@ function StockUpdateForm({ onStockUpdated }) {
           />
         </div>
         
-        {/* The message will render inside a fixed container */}
         <button type="submit" className="submit-btn" disabled={submitting}>
           {submitting ? 'Saving...' : 'Save Stock'}
         </button>
       </form>
       
-      {/* This message element will be styled as a popup/toast */}
+      {/* The floating toast element */}
       {message && <div className={`popup-toast ${isError ? 'error-toast' : 'success-toast'}`}>{message}</div>}
       
     </div>
