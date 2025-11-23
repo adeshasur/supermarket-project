@@ -14,6 +14,17 @@ public class AdminService {
     @Autowired
     private AdminRepository aRepo;
 
+    // ADMIN LOGIN
+    public Admin loginAdmin(String email, String password) {
+        Admin admin = aRepo.findAdminByEmail(email);
+
+        if (admin != null && admin.getPassword().equals(password)) {
+            return admin; // login success
+        }
+
+        return null; // login failed
+    }
+
     public List<Admin> getAllAdmins(){
         return aRepo.findAll();
     }
@@ -26,28 +37,20 @@ public class AdminService {
         return null;
     }
 
-    public Admin saveAdmin(Admin aname){
-        return aRepo.save(aname);
-    }
+//   public Admin saveAdmin(Admin aname){
+//        return aRepo.save(aname);
+//    }
 
     public Admin updateAdmin(Admin aname){
         return  aRepo.save(aname);
     }
 
-    public void deleteAdminById(int cid) {
-        aRepo.deleteById(cid);
+    public void deleteAdminById(int id) {
+        aRepo.deleteById(id);
     }
 
     public Admin getAdminByEmail(String email) {
         return aRepo.findAdminByEmail(email);
     }
 
-    //Admin login
-    public Admin loginAdmin(String email, String password) {
-        Admin a = aRepo.findAdminByEmail(email);
-        if (a != null && a.getPassword().equals(password)) {
-            return a;
-        }
-        return null;
-    }
 }

@@ -14,6 +14,28 @@ public class CustomerService {
     @Autowired
     private CustomerRepository cRepo;
 
+    // CUSTOMER REGISTRATION
+    public Customer registerCustomer(Customer customer) {
+
+        // Check if email already exists
+        Customer existing = cRepo.findCustomerByEmail(customer.getEmail());
+        if (existing != null) {
+            return null; // Email already exists
+        }
+
+        return cRepo.save(customer);
+    }
+
+    // CUSTOMER LOGIN
+    public Customer loginCustomer(String email, String password) {
+        Customer c = cRepo.findCustomerByEmail(email);
+
+        if (c != null && c.getPassword().equals(password)) {
+            return c;
+        }
+        return null;
+    }
+
     public List<Customer> getAllCustomers() {
         return cRepo.findAll();
     }
@@ -26,9 +48,9 @@ public class CustomerService {
         return null;
     }
 
-    public Customer saveCustomer(Customer cname) {
-        return cRepo.save(cname);
-    }
+//    public Customer saveCustomer(Customer cname) {
+//        return cRepo.save(cname);
+//    }
 
     public Customer updateCustomer(Customer cname) {
         return cRepo.save(cname);
@@ -46,12 +68,4 @@ public class CustomerService {
         return cRepo.findCustomerByEmail(email);
     }
 
-    //Customer Login
-    public Customer loginCustomer(String email, String password) {
-        Customer c = cRepo.findCustomerByEmail(email);
-        if (c != null && c.getPassword().equals(password)) {
-            return c; // login success
-        }
-        return null; // login fail
-    }
 }
