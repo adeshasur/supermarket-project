@@ -5,7 +5,7 @@ import Sidebar from './layout/Sidebar';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Inventory from './pages/Inventory';
-import Orders from './pages/Orders';
+import OrderPage from './OrderPage';
 import Customers from './pages/Customers';
 import Payment from './pages/Payment';
 
@@ -23,7 +23,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
             <Route path="/inventory" element={<Inventory />} />
-            <Route path="/orders" element={<Orders />} />
+            <Route path="/OrderPage" element={<Orders />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/Payment" element={<Payment />} />
           </Routes>
