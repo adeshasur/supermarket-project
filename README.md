@@ -2,7 +2,7 @@
 
 This is a group project for the EAD-2 Module. It simulates a supermarket management system using Microservices Architecture.
 
-## 🔌 Port Allocations (Team Reference)
+## 🔌 Port Allocations
 
 | Service Name        | Port | Technology  |
 |---------------------|------|-------------|
