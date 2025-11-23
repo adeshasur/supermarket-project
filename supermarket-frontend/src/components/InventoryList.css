@@ -41,22 +41,17 @@
     color: #212529;
 }
 
-/* Row Hover Effect */
 .inventory-table tbody tr:hover td {
-    background-color: #f8f9fa !important; /* Clean hover effect */
+    background-color: #f8f9fa !important; 
     cursor: default;
 }
 
-/* --- 🔴 ALIGNMENT RULES --- */
-
-/* Product ID (Left) */
 .inventory-table th:first-child,
 .inventory-table td:first-child {
     text-align: left;
     font-weight: 600;
 }
 
-/* Quantity (Right) */
 .inventory-table th:nth-child(2) {
     text-align: right; 
 }
@@ -72,8 +67,6 @@
 .inventory-table td:last-child {
     text-align: center;
 }
-
-/* --- 🔴 STATUS BADGE STYLING (The Modern Look) --- */
 
 .status-cell {
     display: inline-flex;
