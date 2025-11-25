@@ -1,7 +1,6 @@
 package com.supermarket.user_service.controller;
 
 import com.supermarket.user_service.data.Admin;
-
 import com.supermarket.user_service.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")  // <-- add this line
 public class AdminController {
 
     @Autowired
@@ -29,11 +29,6 @@ public class AdminController {
     public Admin getAdminById(@PathVariable("id") int aid) {
         return service.getAdminById(aid);
     }
-
-//    @PostMapping(path = "/admins")
-//    public Admin createAdmin(@RequestBody Admin aname) {
-//        return service.saveAdmin(aname);
-//    }
 
     @PutMapping(path = "/admins")
     public Admin updateAdmin(@RequestBody Admin aname) {

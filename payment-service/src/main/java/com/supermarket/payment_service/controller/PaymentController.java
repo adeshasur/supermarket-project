@@ -1,19 +1,24 @@
 package com.supermarket.payment_service.controller;
 
 import com.supermarket.payment_service.data.Payment;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.supermarket.payment_service.service.PaymentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.supermarket.payment_service.service.PaymentService;
 
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/api/payments")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PaymentController {
 
-    @Autowired
-    private PaymentService paymentService;
+    private final PaymentService paymentService;
+
+    // Constructor injection (same style as OrderController)
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @PostMapping
     public ResponseEntity<Payment> createPayment(@RequestBody Payment payment) {

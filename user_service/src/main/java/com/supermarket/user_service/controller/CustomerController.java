@@ -1,7 +1,6 @@
 package com.supermarket.user_service.controller;
 
 import com.supermarket.user_service.data.Customer;
-
 import com.supermarket.user_service.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")  // <-- added this line
 public class CustomerController {
 
     @Autowired
@@ -42,11 +42,6 @@ public class CustomerController {
     public Customer getCustomerById(@PathVariable int cid) {
         return service.getCustomerById(cid);
     }
-
-//    @PostMapping(path = "/customers")
-//    public Customer createCustomer(@RequestBody Customer cname) {
-//        return service.saveCustomer(cname);
-//    }
 
     @PutMapping(path = "/customers")
     public Customer updateCustomer(@RequestBody Customer cname) {
