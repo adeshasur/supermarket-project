@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import './styles/FormStyles.css';
 import './styles/TableStyles.css';
+import './styles/FormStyles.css';
+import './styles/TableStyles.css';
 
 // Layouts
 import Sidebar from './layout/Sidebar';

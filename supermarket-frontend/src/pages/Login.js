@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Login.css'; // අලුත් Styles ෆයිල් එකක් හදමු
+import '../styles/Login.css'; // ✅ මේක දාන්න
 
 function Login({ onLogin }) {
   const [userType, setUserType] = useState('admin'); // 'admin' or 'customer'
