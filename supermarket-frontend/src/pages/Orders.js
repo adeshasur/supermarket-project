@@ -6,7 +6,7 @@ function Orders() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [inputTerm, setInputTerm] = useState('');
   const [finalSearchTerm, setFinalSearchTerm] = useState('');
-  const [ordersList, setOrdersList] = useState([]); // To share order IDs with the form
+  const [ordersList, setOrdersList] = useState([]); 
 
   const handleOrderUpdate = () => {
     setRefreshKey(prev => prev + 1);
@@ -22,17 +22,17 @@ function Orders() {
 
       <div className="inventory-search-group">
         <input 
-          type="text" 
+          type="number" 
           placeholder="Search by Customer ID..." 
           className="inventory-search-input"
           value={inputTerm}
           onChange={(e) => setInputTerm(e.target.value)}
         />
         <button className="search-btn" onClick={handleSearchClick}>Search</button>
+        <button className="search-btn" style={{marginLeft: '10px', backgroundColor: '#6c757d'}} onClick={() => setRefreshKey(k => k + 1)}>Refresh</button>
       </div>
 
       <div className="inventory-content">
-        {/* Form Section */}
         <div className="inventory-form-section">
           <OrderForm 
             onOrderUpdate={handleOrderUpdate} 
@@ -40,7 +40,6 @@ function Orders() {
           />
         </div>
 
-        {/* List Section */}
         <div className="inventory-list-section">
           <OrderList 
             refreshKey={refreshKey} 
