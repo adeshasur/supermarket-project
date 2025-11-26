@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './StockUpdateForm.css'; // අපේ පරණ Form Styles ම පාවිච්චි කරමු
+// Using global styles from App.css
 
-function OrderForm({ onOrderUpdate }) {
+function OrderForm({ onOrderUpdate, orders }) {
   const [customerId, setCustomerId] = useState('');
-  
-  // Item Adding State
-  const [orderId, setOrderId] = useState('');
+  const [selectedOrderId, setSelectedOrderId] = useState('');
   const [productId, setProductId] = useState('');
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
   
   const [message, setMessage] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   // 1. Create New Order
   const handleCreateOrder = async (e) => {
@@ -19,39 +18,49 @@ function OrderForm({ onOrderUpdate }) {
     try {
       await axios.post('http://localhost:8084/api/orders', { customerId: Number(customerId) });
       setMessage('Order Created Successfully! ✅');
+      setIsError(false);
       setCustomerId('');
-      onOrderUpdate();
-      setTimeout(() => setMessage(null), 3000);
+      onOrderUpdate(); 
     } catch (err) {
       console.error(err);
       setMessage('Failed to create order. ❌');
+      setIsError(true);
     }
+    setTimeout(() => setMessage(null), 3000);
   };
 
   // 2. Add Item to Order
   const handleAddItem = async (e) => {
     e.preventDefault();
+    if (!selectedOrderId) {
+        setMessage('Please select an Order ID first! ⚠️');
+        setIsError(true);
+        return;
+    }
+
     try {
-      await axios.post(`http://localhost:8084/api/orders/${orderId}/items`, {
+      await axios.post(`http://localhost:8084/api/orders/${selectedOrderId}/items`, {
         productId: Number(productId),
         quantity: Number(quantity),
         price: Number(price)
       });
       setMessage('Item Added Successfully! ✅');
+      setIsError(false);
       setProductId(''); setQuantity(''); setPrice('');
-      onOrderUpdate();
-      setTimeout(() => setMessage(null), 3000);
+      onOrderUpdate(); 
     } catch (err) {
       console.error(err);
-      setMessage('Failed to add item. Check Order ID. ❌');
+      setMessage('Failed to add item. ❌');
+      setIsError(true);
     }
+    setTimeout(() => setMessage(null), 3000);
   };
 
   return (
-    <div>
-      {/* --- Form 1: Create Order --- */}
+    <div className="inventory-form-section">
+      {/* Create Order */}
       <div className="form-container" style={{ marginBottom: '20px' }}>
-        <h3>Create New Order</h3>
+        <h3>Create Order</h3>
         <form onSubmit={handleCreateOrder}>
           <div className="form-group">
             <label>Customer ID:</label>
@@ -61,13 +70,24 @@ function OrderForm({ onOrderUpdate }) {
         </form>
       </div>
 
-      {/* --- Form 2: Add Items --- */}
+      {/* Add Items */}
       <div className="form-container">
-        <h3>Add Item to Order</h3>
+        <h3>Add Items</h3>
         <form onSubmit={handleAddItem}>
           <div className="form-group">
             <label>Order ID:</label>
-            <input type="number" value={orderId} onChange={(e) => setOrderId(e.target.value)} required placeholder="Order ID" />
+            <select 
+                className="inventory-search-input"
+                style={{width: '100%', padding: '10px', background: 'white'}}
+                value={selectedOrderId}
+                onChange={(e) => setSelectedOrderId(e.target.value)}
+                required
+            >
+                <option value="">Select Order</option>
+                {orders && orders.map(order => (
+                    <option key={order.id} value={order.id}>Order #{order.id}</option>
+                ))}
+            </select>
           </div>
           <div className="form-group">
             <label>Product ID:</label>
@@ -85,10 +105,15 @@ function OrderForm({ onOrderUpdate }) {
         </form>
 
         {/* Toast Message */}
-        {message && <div className="popup-toast success-toast" style={{top: '10%'}}>{message}</div>}
+        {message && (
+            <div className={`popup-toast ${isError ? 'error-toast' : 'success-toast'}`}>
+                {message}
+            </div>
+        )}
       </div>
     </div>
   );
 }
 
+// 🔴 IMPORTANT: Ensure this default export exists!
 export default OrderForm;

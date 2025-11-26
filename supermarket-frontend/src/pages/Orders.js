@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import OrderList from '../components/OrderList';
+// 🔴 Double check that these imports match the file names exactly!
+import OrderList from '../components/OrderList'; 
 import OrderForm from '../components/OrderForm';
 
 function Orders() {
@@ -29,7 +30,6 @@ function Orders() {
           onChange={(e) => setInputTerm(e.target.value)}
         />
         <button className="search-btn" onClick={handleSearchClick}>Search</button>
-        <button className="search-btn" style={{marginLeft: '10px', backgroundColor: '#6c757d'}} onClick={() => setRefreshKey(k => k + 1)}>Refresh</button>
       </div>
 
       <div className="inventory-content">
