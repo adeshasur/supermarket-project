@@ -1,0 +1,47 @@
+.app-container {
+  display: flex;
+}
+
+.page-content {
+  margin-left: 240px; /* Sidebar එකට ඉඩ තියන්න */
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper {
+  padding: 30px;
+  flex: 1; /* Footer එක පහලට තල්ලු කරන්න */
+}
+
+/* Dashboard Cards */
+.dashboard-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s;
+  border: 1px solid #eee;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #007aff;
+}
+
+.card h2 { font-size: 3rem; margin: 0; }
+.card h3 { color: #007aff; margin: 10px 0 5px; }
+.card p { color: #666; font-size: 0.9rem; }
