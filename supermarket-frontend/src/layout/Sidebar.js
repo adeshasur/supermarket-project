@@ -28,8 +28,15 @@ function Sidebar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/customers" className={({ isActive }) => (isActive ? "active" : "")}>
-            👥 Customers
+          {/* Renamed Customers to Users */}
+          <NavLink to="/users" className={({ isActive }) => (isActive ? "active" : "")}>
+            👥 Users
+          </NavLink>
+        </li>
+        <li>
+          {/* Added Payment */}
+          <NavLink to="/payment" className={({ isActive }) => (isActive ? "active" : "")}>
+            💳 Payment
           </NavLink>
         </li>
       </ul>

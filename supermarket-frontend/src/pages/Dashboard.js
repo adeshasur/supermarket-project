@@ -23,10 +23,17 @@ function Dashboard() {
             <h3>Orders</h3>
             <p>View Orders</p>
         </Link>
-        <Link to="/customers" className="card">
+        {/* Changed to Users */}
+        <Link to="/users" className="card">
             <h2>👥</h2>
-            <h3>Customers</h3>
+            <h3>Users</h3>
             <p>User Details</p>
+        </Link>
+        {/* Added Payment Card (Optional) */}
+        <Link to="/payment" className="card">
+            <h2>💳</h2>
+            <h3>Payment</h3>
+            <p>Transactions</p>
         </Link>
       </div>
     </div>

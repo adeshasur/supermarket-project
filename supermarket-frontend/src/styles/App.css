@@ -1,21 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f6f8;
+}
+
+/* --- 1. Main Layout Structure --- */
 .app-container {
   display: flex;
 }
 
 .page-content {
-  margin-left: 240px; /* Sidebar එකට ඉඩ තියන්න */
-  width: 100%;
+  margin-left: 240px; /* Sidebar Width */
+  padding: 30px;
+  width: calc(100% - 240px);
   min-height: 100vh;
+  background-color: #f4f6f8;
   display: flex;
   flex-direction: column;
 }
 
 .content-wrapper {
-  padding: 30px;
-  flex: 1; /* Footer එක පහලට තල්ලු කරන්න */
+  flex: 1; /* Pushes footer to bottom */
 }
 
-/* Dashboard Cards */
+/* --- 2. Header Styles --- */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 15px 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.header-left h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #343a40;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.icon-wrapper {
+  position: relative;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.icon-wrapper:hover {
+  transform: scale(1.1);
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 15px;
+  background-color: #f8f9fa;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.profile-pic {
+  width: 35px;
+  height: 35px;
+  background-color: #e9ecef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+/* --- 3. Footer Styles --- */
+.app-footer {
+  margin-top: 50px;
+  text-align: center;
+  padding: 20px;
+  color: #868e96;
+  font-size: 0.85rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.app-footer p {
+  margin: 5px 0;
+}
+
+/* --- 4. Dashboard Styles (Cards) --- */
 .dashboard-grid {
   display: flex;
   gap: 20px;
@@ -45,3 +143,61 @@
 .card h2 { font-size: 3rem; margin: 0; }
 .card h3 { color: #007aff; margin: 10px 0 5px; }
 .card p { color: #666; font-size: 0.9rem; }
+
+/* --- 5. Page Titles --- */
+.page-title, h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #007aff;
+  display: inline-block;
+}
+
+/* --- 6. Split Layout (Products & Inventory) --- */
+.inventory-page {
+  width: 100%;
+}
+
+.inventory-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.inventory-form-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.inventory-list-section {
+  flex: 2;
+  min-width: 0;
+}
+
+/* --- 7. Search Bar Styles --- */
+.inventory-search-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  max-width: 500px;
+}
+
+.inventory-search-input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.search-btn {
+  padding: 10px 20px;
+  background-color: #007aff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
