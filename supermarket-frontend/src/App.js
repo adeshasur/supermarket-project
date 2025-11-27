@@ -7,7 +7,8 @@ import Footer from './layout/Footer';
 // Pages
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
-import Inventory from './pages/Inventory'; // 1. Added Import
+import Inventory from './pages/Inventory';
+import Orders from './pages/Orders'; // 1. Import කළා
 import Users from './pages/Users';
 import Payment from './pages/Payment';
 
@@ -24,8 +25,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />
-              {/* 2. Added Route */}
               <Route path="/inventory" element={<Inventory />} />
+              <Route path="/orders" element={<Orders />} /> {/* 2. Route එක දැම්මා */}
               <Route path="/users" element={<Users />} />
               <Route path="/payment" element={<Payment />} />
             </Routes>

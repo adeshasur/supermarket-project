@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import CustomerList from '../components/CustomerList';
-import CustomerForm from '../components/CustomerForm';
+import UserList from '../components/UserList';
+import UserForm from '../components/UserForm';
 
-function Customers() {
-  const [refreshKey, setRefreshKey] = useState(0); 
+function Users() {
+  const [refreshKey, setRefreshKey] = useState(0);
   const [inputTerm, setInputTerm] = useState('');
   const [finalSearchTerm, setFinalSearchTerm] = useState('');
 
-  const handleCustomerAdded = () => {
-    setRefreshKey(prevKey => prevKey + 1);
+  const handleUserAdded = () => {
+    setRefreshKey(prev => prev + 1);
   };
 
   const handleSearchClick = () => {
@@ -17,30 +17,30 @@ function Customers() {
 
   return (
     <div className="inventory-page">
-      <h1 className="inventory-title">Customer Management</h1>
-      
-      {/* Search Section */}
+      <h1 className="page-title">User Management</h1>
+
+      {/* Search Bar */}
       <div className="inventory-search-group">
-        <input 
-          type="text" 
-          placeholder="Search by Name or Email..." 
+        <input
+          type="text"
+          placeholder="Search by Name or Email..."
           className="inventory-search-input"
           value={inputTerm}
           onChange={(e) => setInputTerm(e.target.value)}
         />
         <button className="search-btn" onClick={handleSearchClick}>Search</button>
       </div>
-      
-      {/* Content Section */}
+
+      {/* Split Layout: Form Left, List Right */}
       <div className="inventory-content">
         <div className="inventory-form-section">
-          <CustomerForm onCustomerAdded={handleCustomerAdded} />
+          <UserForm onUserAdded={handleUserAdded} />
         </div>
-        
+
         <div className="inventory-list-section">
-          <CustomerList 
-            refreshKey={refreshKey} 
-            searchTerm={finalSearchTerm} 
+          <UserList
+            refreshKey={refreshKey}
+            searchTerm={finalSearchTerm}
           />
         </div>
       </div>
@@ -48,4 +48,4 @@ function Customers() {
   );
 }
 
-export default Customers;
+export default Users;
