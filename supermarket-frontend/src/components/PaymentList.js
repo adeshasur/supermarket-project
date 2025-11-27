@@ -1,77 +1,112 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-import '../styles/TableStyles.css'; 
+import axios from 'axios';
+import '../styles/TableStyles.css';
 
-function PaymentList({ refreshKey, searchTerm = '' }) { 
+function PaymentList({ refreshKey, searchTerm }) {
     const [payments, setPayments] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchPayments = async () => {
+    const fetchPayments = async () => {
+        // Search Term එකක් නැත්නම් මුකුත් නොකර ඉමු (Backend එකේ getAll නැති නිසා)
+        if (!searchTerm) {
+            setPayments([]);
+            return;
+        }
+
+        try {
             setLoading(true);
-            
-            // --- 🔴 MOCK DATA ---
-            const mockPayments = [
-                { id: 501, orderId: 101, amount: 4500.00, paymentMethod: 'Card', paymentStatus: 'COMPLETED' },
-                { id: 502, orderId: 102, amount: 1250.50, paymentMethod: 'Cash', paymentStatus: 'PENDING' },
-                { id: 503, orderId: 103, amount: 8500.00, paymentMethod: 'Card', paymentStatus: 'FAILED' },
-            ];
+            // Endpoint: /api/payments/order/{orderId}
+            const res = await axios.get(`http://localhost:8085/api/payments/order/${searchTerm}`);
+            setPayments(res.data);
+        } catch (err) {
+            console.error(err);
+            setPayments([]); // Error නම් ලිස්ට් එක හිස් කරමු
+        } finally {
+            setLoading(false);
+        }
+    };
 
-            setTimeout(() => {
-                setPayments(mockPayments);
-                setLoading(false);
-            }, 500);
-        };
-        fetchPayments();
-    }, [refreshKey]); 
+    // searchTerm වෙනස් වෙනකොට හෝ refreshKey වෙනස් වෙනකොට Call එක යන්න
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            fetchPayments();
+        }, 500); // Type කරලා ඉවර වෙනකම් තත්පර 0.5ක් ඉන්නවා
 
-    const filteredPayments = payments.filter(item => 
-        item.orderId.toString().includes(searchTerm)
-    );
+        return () => clearTimeout(delayDebounceFn);
+    }, [searchTerm, refreshKey]);
 
-    if (loading) return <div className="inventory-table-container"><h3 style={{textAlign:'center'}}>Loading Payments...</h3></div>;
+    const handleDelete = async (id) => {
+        if (window.confirm("Delete Payment ID: " + id + "?")) {
+            try {
+                await axios.delete(`http://localhost:8085/api/payments/${id}`);
+                fetchPayments(); // Refresh
+            } catch (error) {
+                alert("Failed to delete payment.");
+            }
+        }
+    };
 
     return (
         <div className="inventory-table-container">
-            <h3>Transaction History</h3>
-            <table className="inventory-table">
-                <thead>
-                    <tr>
-                        <th>Pay ID</th>
-                        <th>Order ID</th>
-                        <th>Amount (LKR)</th>
-                        <th>Method</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredPayments.length === 0 ? (
-                        <tr><td colSpan="5" style={{ textAlign: 'center' }}>No payments found.</td></tr>
-                    ) : (
-                        filteredPayments.map((pay) => (
-                            <tr key={pay.id}>
-                                <td>#{pay.id}</td>
-                                <td>{pay.orderId}</td>
-                                <td style={{ textAlign: 'right', fontWeight: 'bold' }}>
-                                    {pay.amount.toFixed(2)}
-                                </td>
-                                <td style={{textAlign: 'center'}}>{pay.paymentMethod}</td>
-                                <td>
-                                    <div className="status-cell">
-                                        <span 
-                                            className="status-dot" 
-                                            style={{ backgroundColor: pay.paymentStatus === 'COMPLETED' ? '#28a745' : pay.paymentStatus === 'PENDING' ? '#ffc107' : '#dc3545' }}
-                                        ></span>
-                                        <span style={{ color: pay.paymentStatus === 'COMPLETED' ? '#28a745' : pay.paymentStatus === 'PENDING' ? '#ffc107' : '#dc3545', fontWeight: 'bold' }}>
+            <h3>Payment History</h3>
+
+            {/* පොඩි උපදෙසක් */}
+            {!searchTerm && <p style={{ color: '#666', marginBottom: '15px', fontStyle: 'italic' }}>Type an Order ID in the search bar to view payments.</p>}
+
+            {loading ? (
+                <p style={{ textAlign: 'center' }}>Loading...</p>
+            ) : (
+                <table className="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Pay ID</th>
+                            <th>Order ID</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {payments.length === 0 ? (
+                            <tr><td colSpan="6" style={{ textAlign: 'center' }}>No payments found for this Order ID.</td></tr>
+                        ) : (
+                            payments.map((pay) => (
+                                <tr key={pay.id}>
+                                    <td>#{pay.id}</td>
+                                    <td>{pay.orderId}</td>
+                                    <td style={{ textAlign: 'right', fontWeight: 'bold' }}>
+                                        {pay.amount.toFixed(2)}
+                                    </td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <span style={{
+                                            background: '#d1fae5', color: '#059669',
+                                            padding: '4px 8px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 'bold'
+                                        }}>
                                             {pay.paymentStatus}
                                         </span>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))
-                    )}
-                </tbody>
-            </table>
+                                    </td>
+                                    <td>
+                                        {pay.paymentDate ? new Date(pay.paymentDate).toLocaleDateString() : 'N/A'}
+                                    </td>
+                                    <td style={{ textAlign: 'center' }}>
+                                        <button
+                                            onClick={() => handleDelete(pay.id)}
+                                            style={{
+                                                background: 'transparent', border: '1px solid #dc3545',
+                                                color: '#dc3545', padding: '5px 10px', borderRadius: '5px',
+                                                cursor: 'pointer', fontWeight: '600'
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            )}
         </div>
     );
 }
